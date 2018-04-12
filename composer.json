@@ -1,0 +1,23 @@
+{
+  "name": "micx/app-server",
+  "description": "micx app server",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Matthias Leuffen",
+      "email": "m@tth.es"
+    }
+  ],
+  "require": {
+    "php": ">=7.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Micx\\": "src/"
+    }
+  },
+  "require-dev": {
+    "nette/tester": "^2.0"
+  }
+}
