@@ -10,7 +10,9 @@
     }
   ],
   "require": {
-    "php": ">=7.1"
+    "php": ">=7.0",
+    "symfony/yaml": "^4.0",
+    "jms/serializer": "*"
   },
   "autoload": {
     "psr-4": {

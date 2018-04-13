@@ -2,3 +2,9 @@
 # Run ./kickstart.sh to start a development-container for this project
 version: 1
 from: "continue/kickstart-flavor-gaia"
+
+
+command:
+  init:
+#    - "composer global require nette/tester"
+    - "composer install"
