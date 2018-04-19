@@ -163,8 +163,10 @@ class ObjectSerializer
      */
     public function deserialize (array $inputArray, $targetObject)
     {
+        if (is_string($targetObject))
+            $targetObject = new $targetObject();
         try {
-            $this->_deserialize($inputArray, $targetObject);
+            return $this->_deserialize($inputArray, $targetObject);
         } catch (ObjectSerializerException $intE) {
             $failedPath = implode(".", $intE->getFailedPath());
             $ee = new ObjectSerializerException("Failed Path '{$failedPath}': {$intE->getMessage()} (reported in {$intE->getFailedClass()}::{$intE->getFailedProperty()})", $intE->getCode());

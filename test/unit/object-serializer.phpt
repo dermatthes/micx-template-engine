@@ -13,6 +13,7 @@ use JMS\Serializer\SerializerBuilder;
 use Micx\Core\App\ApplicationFactory;
 use Micx\Core\Config\MicxConfig;
 use Micx\Core\Helper\ObjectSerializer;
+use Micx\Core\Helper\ObjectSerializerTrait;
 use Micx\Modules\Router\Config\T_RouterConfig;
 
 
@@ -24,12 +25,13 @@ class _TB {
 
     public $basicVal;
 
-    public $basicB;
 
 }
 
 
-class _TA {
+class _TA
+{
+    use ObjectSerializerTrait;
 
     const __META__ = [
         "properties" => [
@@ -70,10 +72,7 @@ $input = [
     ]
 ];
 
-$ser = new ObjectSerializer();
-$ser->deserialize($input, $ta = new _TA());
-
-print_r($ta);
+print_r (_TA::Unserialize($input));
 
 
 
