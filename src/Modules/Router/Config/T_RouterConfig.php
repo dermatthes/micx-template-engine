@@ -13,15 +13,10 @@ use JMS\Serializer\Annotation as Serializer;
 
 class T_RouterConfig
 {
-
-    const __DEFAULT__ = [
-        "config" => "micx-routes.yml"
-    ];
-
     /**
      * @Serializer\Type("string")
      * @var
      */
-    public $config;
+    public $configFile = "micx-routes.yml";
 
 }

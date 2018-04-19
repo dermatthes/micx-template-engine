@@ -9,11 +9,23 @@
 namespace Micx\Core\Config;
 
 
-use JMS\Serializer\Annotation as Serializer;
 use Micx\Modules\Router\Config\T_RouterConfig;
 
 class MicxConfig
 {
+
+
+    const __META__ = [
+        "properties" => [
+            "version" => [
+                "type" => "int",
+                "required" => true
+            ],
+            "modules" => [
+                "type" => "array",
+            ]
+        ]
+    ];
 
     /**
      * @Serializer\Type("string")
