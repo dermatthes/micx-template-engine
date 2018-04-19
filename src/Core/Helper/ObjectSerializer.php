@@ -159,6 +159,7 @@ class ObjectSerializer
     /**
      * @param array $inputArray
      * @param $targetObject
+     * @return mixed
      * @throws ObjectSerializerException
      */
     public function deserialize (array $inputArray, $targetObject)

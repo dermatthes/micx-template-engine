@@ -14,9 +14,9 @@ use Throwable;
 class ObjectSerializerException extends \Exception
 {
 
-    private $failedPath = [];
-    private $failedClassName = null;
-    private $failedPropertyName = null;
+    protected $failedPath = [];
+    protected $failedClassName = null;
+    protected $failedPropertyName = null;
 
     public function __construct(string $message = "", int $code = 0, Throwable $previous = null)
     {
