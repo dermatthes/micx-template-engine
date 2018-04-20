@@ -11,7 +11,7 @@ namespace Micx\Core\Helper;
 
 use Symfony\Component\Yaml\Yaml;
 
-trait ObjectSerializerTrait
+trait ObjectUnserializerTrait
 {
 
     /**

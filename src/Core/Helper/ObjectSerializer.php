@@ -11,9 +11,6 @@ namespace Micx\Core\Helper;
 
 class ObjectSerializer
 {
-
-    const _BASIC_TYPES = ["int", "string", "float", "boolean"];
-
     protected $curName = [];
     protected $curClass = "";
 
@@ -24,20 +21,13 @@ class ObjectSerializer
             "required" => true,
             "array" => false,
             "map"   => false,
-            "transient" => false
+            "transient" => false,
+            "validate" => null
         ];
         if (isset ($meta["properties"][$propertyName])) {
             $config = array_merge($config, $meta["properties"][$propertyName]);
         }
         return $config;
-    }
-
-    protected function getMetaInfo (\ReflectionObject $ref) : array
-    {
-        if ($ref->hasConstant("__META__")) {
-            return $ref->getConstant("__META__");
-        }
-        return ["properties" => []];
     }
 
     /**
@@ -51,18 +41,22 @@ class ObjectSerializer
         switch ($type) {
             case "mixed":
                 return $value;
+
             case "string":
                 if ( ! is_string($value))
                     throw new ObjectSerializerException("expected: string", 200);
                 return (string)$value;
+
             case "int":
                 if ( ! is_int($value))
                     throw new ObjectSerializerException("expected: int", 201);
                 return (int)$value;
+
             case "bool":
                 if ( ! is_bool($value))
                     throw new ObjectSerializerException("expected: bool", 202);
                 return (bool)$value;
+
             default:
                 if ( ! class_exists($type))
                     throw new ObjectSerializerException("class not found: $type", 203);
@@ -85,11 +79,14 @@ class ObjectSerializer
      */
     protected function buildValue($input, array $propConfig, $defaultValue)
     {
-        if ($input === null && $propConfig["required"] === true)
+        if ($propConfig["transient"] === true)
+            return $defaultValue;
+
+        if ($input === null && $propConfig["required"] === true && $defaultValue === null)
             throw new ObjectSerializerException("required property missing", 100);
+
         if ($input === null)
             $input = $defaultValue;
-
 
         if ($propConfig["array"] || $propConfig["map"]) {
             if ( ! is_array($input))
@@ -125,7 +122,7 @@ class ObjectSerializer
     protected function _deserialize (array $data, $targetObject)
     {
         $ref = new \ReflectionObject($targetObject);
-        $meta = $this->getMetaInfo($ref);
+        $meta = ObjectSerializerKernel::GetInstance()->getMeta($ref->getName());
 
         foreach ($ref->getProperties() as $curPropRef) {
             $curPropName = $curPropRef->getName();
@@ -145,13 +142,21 @@ class ObjectSerializer
                     )
                 );
             } catch (ObjectSerializerException $e) {
-                if ($e->getFailedProperty() === null) {
+                if ($e->getFailedClass() === null) {
                     $e->__setFailedPropertyName($curPropName);
                     $e->__setFailedClassName($ref->getName());
                 }
                 $e->__addFailedPath($curPropName);
                 throw $e;
             }
+        }
+        $rest = array_keys($data);
+        if (count($rest) > 0) {
+            $unrecognized = implode(", ", $rest);
+            $e = new ObjectSerializerException("Unrecognized keys: '$unrecognized'");
+            $e->__setFailedClassName($ref->getName());
+            $e->__setFailedPropertyName($rest[0]);
+            throw $e;
         }
         return $targetObject;
     }

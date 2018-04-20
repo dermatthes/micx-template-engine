@@ -13,7 +13,7 @@ use JMS\Serializer\SerializerBuilder;
 use Micx\Core\App\ApplicationFactory;
 use Micx\Core\Config\MicxConfig;
 use Micx\Core\Helper\ObjectSerializer;
-use Micx\Core\Helper\ObjectSerializerTrait;
+use Micx\Core\Helper\ObjectUnserializerTrait;
 use Micx\Modules\Router\Config\T_RouterConfig;
 
 
@@ -31,31 +31,16 @@ class _TB {
 
 class _TA
 {
-    use ObjectSerializerTrait;
+    use ObjectUnserializerTrait;
 
-    const __META__ = [
-        "properties" => [
-            "basicVal" => [
-                "type" => "string"
-            ],
-            "basicArrVal" => [
-                "type" => "string",
-                "array" => true
-            ],
-            "basicMapVal" => [
-                "type" => "string",
-                "map" => true
-            ],
-            "cpxVal" => [
-                "type" => _TB::class
-            ]
-        ]
-    ];
+    const __META__ = __DIR__ . "/_TA.meta.php";
 
+    public $unsetVal = "abc";
     public $basicVal;
     public $basicArrVal;
     public $basicMapVal;
     public $cpxVal;
+    public $cpxValArr;
 }
 
 
