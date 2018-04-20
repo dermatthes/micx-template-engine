@@ -38,8 +38,6 @@ class ObjectSerializerException extends \Exception
         $this->failedPropertyName = $propName;
     }
 
-
-
     /**
      * Build a meaningful Exception
      *
@@ -63,7 +61,8 @@ class ObjectSerializerException extends \Exception
         return $this->failedPropertyName;
     }
 
-    public function getFailedClass () {
+    public function getFailedClass ()
+    {
         return $this->failedClassName;
     }
 
