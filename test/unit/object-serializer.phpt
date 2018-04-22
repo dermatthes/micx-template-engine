@@ -40,7 +40,7 @@ class _TA
     public $basicArrVal;
     public $basicMapVal;
     public $cpxVal;
-    public $cpxValArr;
+    public $cpxValArr = [];
 }
 
 
@@ -54,6 +54,11 @@ $input = [
     ],
     "cpxVal" => [
         "basicVal" => "C"
+    ],
+    "cpxValArr" => [
+        [
+            "basicVal" => "schmuh"
+        ]
     ]
 ];
 

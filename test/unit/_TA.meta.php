@@ -21,6 +21,11 @@ return [
         ],
         "cpxVal" => [
             "type" => \Test\_TB::class
+        ],
+        "cpxValArr" => [
+            "type" => \Test\_TB::class,
+            "array" => true
         ]
+
     ]
 ];
