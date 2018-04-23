@@ -6,7 +6,7 @@
  * Time: 1:21 AM
  */
 
-namespace Micx\Core\Helper;
+namespace Micx\Core\Serializer;
 
 
 use Symfony\Component\Yaml\Yaml;

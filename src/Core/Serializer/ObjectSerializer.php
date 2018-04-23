@@ -6,7 +6,7 @@
  * Time: 12:53 AM
  */
 
-namespace Micx\Core\Helper;
+namespace Micx\Core\Serializer;
 
 
 class ObjectSerializer

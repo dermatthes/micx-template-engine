@@ -6,7 +6,7 @@
  * Time: 12:17 AM
  */
 
-namespace Micx\Core\Helper;
+namespace Micx\Core\Serializer;
 
 
 use Throwable;

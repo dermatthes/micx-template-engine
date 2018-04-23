@@ -6,8 +6,10 @@
  * Time: 2:45 AM
  */
 
-namespace Micx\Core\Helper;
+namespace Micx\Core\Serializer;
 
+
+use Micx\Core\Helper\Singleton;
 
 class ObjectSerializerKernel
 {

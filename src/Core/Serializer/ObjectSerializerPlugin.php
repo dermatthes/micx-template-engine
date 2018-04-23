@@ -6,7 +6,7 @@
  * Time: 3:07 AM
  */
 
-namespace Micx\Core\Helper;
+namespace Micx\Core\Serializer;
 
 
 interface ObjectSerializerPlugin
