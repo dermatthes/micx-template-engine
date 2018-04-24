@@ -14,5 +14,6 @@ interface Module
 
     public function register (ApplicationFactory $applicationFactory);
 
+    public function onApplicationBuild (Application $application);
 
 }

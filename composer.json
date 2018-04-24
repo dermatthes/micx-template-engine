@@ -10,9 +10,10 @@
     }
   ],
   "require": {
-    "php": ">=7.0",
+    "php": ">=7.1",
     "symfony/yaml": "^4.0",
-    "jms/serializer": "*"
+    "zendframework/zend-uri": "^2.5",
+    "zendframework/zend-diactoros": "^1.7"
   },
   "autoload": {
     "psr-4": {

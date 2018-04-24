@@ -8,6 +8,8 @@
 
 namespace Micx\Core\App\Mw;
 
+use Zend\Diactoros\Response;
+use Zend\Diactoros\ServerRequest;
 
 trait MiddleWareContainer
 {
@@ -19,8 +21,13 @@ trait MiddleWareContainer
 
     public function addMiddleWare (MiddleWare $middleWare)
     {
-
+        $this->middlewares[] = $middleWare;
     }
 
+    protected function runMiddlewares (ServerRequest $request, Response $response) : Response
+    {
+        $next = new Next($this->middlewares, $this);
+        return $next($request, $response);
+    }
 
 }

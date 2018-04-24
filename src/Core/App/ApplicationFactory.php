@@ -9,31 +9,20 @@
 namespace Micx\Core\App;
 
 
-use Doctrine\Common\Annotations\AnnotationRegistry;
-use JMS\Serializer\SerializerBuilder;
-use Micx\Core\Config\MicxConfig;
 use Symfony\Component\Yaml\Yaml;
 
 class ApplicationFactory
 {
 
-    /**
-     * @var SerializerBuilder
-     */
-    private $jmsBuilder;
 
+
+    /**
+     * @var Module[]
+     */
     private $modules = [];
 
     public function __construct()
     {
-        // Used unless upgrade to DoctrineAnnotations >=2.0.0
-        AnnotationRegistry::registerLoader("class_exists");
-        $this->jmsBuilder = SerializerBuilder::create();
-    }
-
-    public function getJmsBuilder() : SerializerBuilder
-    {
-        return $this->jmsBuilder;
     }
 
 
@@ -58,13 +47,17 @@ class ApplicationFactory
         $serializer = $this->jmsBuilder->build();
         $parsed = Yaml::parse($data);
         return $parsed;
-        return $serializer->deserialize($parsed, MicxConfig::class, "array");
     }
 
 
 
 
     public function build ($configFile) : Application
-    {}
+    {
+        $application = new Application();
+        foreach ($this->modules as $module)
+            $module->onApplicationBuild($application);
+        return $application;
+    }
 
 }
