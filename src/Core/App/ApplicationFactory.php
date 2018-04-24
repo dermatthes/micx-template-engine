@@ -9,17 +9,19 @@
 namespace Micx\Core\App;
 
 
+use Micx\Core\Helper\EventEmitterTrait;
 use Symfony\Component\Yaml\Yaml;
 
 class ApplicationFactory
 {
-
+    use EventEmitterTrait;
 
 
     /**
      * @var Module[]
      */
     private $modules = [];
+
 
     public function __construct()
     {
@@ -36,15 +38,15 @@ class ApplicationFactory
      */
     public function registerAvailableModule (Module $module) : self
     {
-        $this->modules[] = $module;
         $module->register($this);
         return $this;
     }
 
 
+
+
     public function buildConfig (string $data)
     {
-        $serializer = $this->jmsBuilder->build();
         $parsed = Yaml::parse($data);
         return $parsed;
     }
@@ -55,8 +57,7 @@ class ApplicationFactory
     public function build ($configFile) : Application
     {
         $application = new Application();
-        foreach ($this->modules as $module)
-            $module->onApplicationBuild($application);
+        $this->triggerEvent("app-init", $application);
         return $application;
     }
 

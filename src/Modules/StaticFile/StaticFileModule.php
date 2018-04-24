@@ -18,11 +18,9 @@ class StaticFileModule implements Module
 
     public function register(ApplicationFactory $applicationFactory)
     {
-
+        $applicationFactory->addEventListener("app-init", 10, function (Application $application) {
+            $application->addMiddleWare(new StaticFileMw("wurst"));
+        });
     }
 
-    public function onApplicationBuild(Application $application)
-    {
-        $application->addMiddleWare(new StaticFileMw("wurst"));
-    }
 }
