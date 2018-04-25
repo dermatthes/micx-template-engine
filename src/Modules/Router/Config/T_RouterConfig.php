@@ -9,14 +9,18 @@
 namespace Micx\Modules\Router\Config;
 
 
-use JMS\Serializer\Annotation as Serializer;
+
+use Micx\Core\Serializer\ObjectUnserializerTrait;
 
 class T_RouterConfig
 {
+    use ObjectUnserializerTrait;
+
+
     /**
      * @Serializer\Type("string")
      * @var
      */
-    public $configFile = "micx-routes.yml";
+    public $config_file = "micx-routes.yml";
 
 }

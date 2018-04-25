@@ -11,7 +11,7 @@ namespace Test;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use JMS\Serializer\SerializerBuilder;
 use Micx\Core\App\ApplicationFactory;
-use Micx\Core\Config\MicxConfig;
+use Micx\Core\Config\ConfigFile;
 use Micx\Core\Serializer\ObjectSerializer;
 use Micx\Core\Serializer\ObjectUnserializerTrait;
 use Micx\Modules\Router\Config\T_RouterConfig;

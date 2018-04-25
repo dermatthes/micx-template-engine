@@ -12,13 +12,14 @@ namespace Micx\Modules\StaticFile;
 use Micx\Core\App\Application;
 use Micx\Core\App\ApplicationFactory;
 use Micx\Core\App\Module;
+use Micx\Core\Config\ConfigFile;
 
 class StaticFileModule implements Module
 {
 
     public function register(ApplicationFactory $applicationFactory)
     {
-        $applicationFactory->addEventListener("app-init", 10, function (Application $application) {
+        $applicationFactory->addEventListener("app-init", 10, function (Application $application, ConfigFile $config) {
             $application->addMiddleWare(new StaticFileMw("wurst"));
         });
     }
