@@ -18,8 +18,8 @@ class T_RouterConfig
 
 
     /**
-     * @Serializer\Type("string")
-     * @var
+     *
+     * @var string
      */
     public $config_file = "micx-routes.yml";
 
