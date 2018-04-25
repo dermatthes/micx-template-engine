@@ -12,6 +12,7 @@ namespace Micx\Core\App;
 use Micx\Core\Config\ConfigFile;
 use Micx\Core\Config\ConfigFileFactory;
 use Micx\Core\Helper\EventEmitterTrait;
+use Micx\Core\Vfs\VirtualFileSystem;
 use Symfony\Component\Yaml\Yaml;
 
 class ApplicationFactory
@@ -24,11 +25,17 @@ class ApplicationFactory
      */
     private $modules = [];
 
+    private $virtualFileSystem;
 
-    public function __construct()
+    public function __construct(VirtualFileSystem $virtualFileSystem)
     {
+        $this->virtualFileSystem = $virtualFileSystem;
     }
 
+    public function getVirtualFileSystem() : VirtualFileSystem
+    {
+        return $this->virtualFileSystem;
+    }
 
     /**
      * Register the Plugins (not activation)

@@ -49,7 +49,7 @@ class VirtualFile extends VirtualPath
 
     public function fopen ()
     {
-
+        return fopen($this->curDir, "r");
     }
 
 

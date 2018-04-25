@@ -12,6 +12,8 @@ namespace Micx\Core\App\Di;
 interface DiRef
 {
 
+    public function isProtected () : bool;
+
     public function addFilter (callable $filter);
 
     public function resolve(DiContainer $container);
