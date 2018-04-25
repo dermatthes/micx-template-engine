@@ -12,6 +12,7 @@ namespace Micx\Modules\StaticFile;
 use Micx\Core\App\Application;
 use Micx\Core\App\Mw\MiddleWare;
 use Micx\Core\App\Mw\Next;
+use Micx\Core\Vfs\PathNotFoundException;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Stream;
@@ -26,11 +27,22 @@ class StaticFileMw implements MiddleWare
         $this->rootDir = $rootDir;
     }
 
+    /**
+     * @param ServerRequest $request
+     * @param Response $response
+     * @param Next $next
+     * @param Application $app
+     * @return Response
+     * @throws \Micx\Core\Vfs\PathOutOfBoundsException
+     */
     public function __invoke(ServerRequest $request, Response $response, Next $next, Application $app): Response
     {
-        $dir = $this->rootDir . "/" . $request->getUri()->getPath();
-        $response = new Response\HtmlResponse("Hello world! $dir");
-
-        return $next($request, $response);
+        try {
+            $file = $app->virtualFileSystem->withFileName($request->getUri()->getPath());
+            $response = new Response\HtmlResponse(new Stream($file->fopen()));
+            return $response;
+        } catch (PathNotFoundException $e) {
+            return $next($request, $response);
+        }
     }
 }

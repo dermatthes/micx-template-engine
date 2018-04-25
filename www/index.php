@@ -17,13 +17,12 @@ use Symfony\Component\Yaml\Yaml;
 require __DIR__ . "/../vendor/autoload.php";
 
 
-$factory = new ApplicationFactory();
+$factory = new ApplicationFactory($vfs = VirtualFileSystem::Build(__DIR__ ."/../test/ref_page"));
 $factory->registerAvailableModule(new RouterModule());
 $factory->registerAvailableModule(new StaticFileModule());
 
-$vfs = VirtualFileSystem::Build(__DIR__ ."/../test/ref_page");
 
-$application = $factory->build(yaml_parse_file(__DIR__ . "/../test/ref_page/micx.yml"));
+$application = $factory->build($vfs->withFileName("micx.yml")->getYaml());
 
 
 $application->serve();

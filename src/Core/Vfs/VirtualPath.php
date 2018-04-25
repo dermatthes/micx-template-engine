@@ -27,6 +27,12 @@ class VirtualPath
         return file_exists($this->getPath());
     }
 
+    /**
+     * @param string $newPath
+     * @return VirtualPath
+     * @throws PathNotFoundException
+     * @throws PathOutOfBoundsException
+     */
     public function withPath (string $newPath) : self
     {
         $relDir = $this->curDir . "/" . $newPath;
@@ -44,7 +50,12 @@ class VirtualPath
         return $new;
     }
 
-
+    /**
+     * @param string $fileName
+     * @return VirtualFile
+     * @throws PathNotFoundException
+     * @throws PathOutOfBoundsException
+     */
     public function withFileName (string $fileName) : VirtualFile
     {
         $relDir = $this->curDir . "/" . $fileName;
@@ -62,6 +73,11 @@ class VirtualPath
     }
 
 
+    /**
+     * @param string $path
+     * @return string
+     * @throws PathOutOfBoundsException
+     */
     public static function resolve(string $path) : string
     {
         $parts = explode("/", $path);

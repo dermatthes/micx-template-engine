@@ -9,6 +9,7 @@
 namespace Micx\Core\App;
 
 
+use Micx\Core\App\Di\DiValue;
 use Micx\Core\Config\ConfigFile;
 use Micx\Core\Config\ConfigFileFactory;
 use Micx\Core\Helper\EventEmitterTrait;
@@ -72,6 +73,8 @@ class ApplicationFactory
         // Caching vom Conifg-Object
 
         $application = new Application();
+        $application->virtualFileSystem = new DiValue($this->virtualFileSystem, true);
+
         $this->triggerEvent("app-init", $application, $config);
         return $application;
     }

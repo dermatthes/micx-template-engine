@@ -10,17 +10,26 @@ namespace Micx\Core\App;
 
 
 use Micx\Core\App\Di\DiContainer;
+use Micx\Core\App\Di\DiContainerTrait;
 use Micx\Core\App\Mw\MiddleWareContainer;
 use Micx\Core\App\Mw\Next;
+use Micx\Core\Vfs\VirtualFileSystem;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\SapiEmitter;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\ServerRequestFactory;
 use Zend\Diactoros\Stream;
 
-class Application
+
+/**
+ * Class Application
+ * @package Micx\Core\App
+ *
+ * @property VirtualFileSystem $virtualFileSystem
+ */
+class Application implements DiContainer
 {
-    use MiddleWareContainer, DiContainer;
+    use MiddleWareContainer, DiContainerTrait;
 
     public function dispatch(ServerRequest $request) : Response
     {
