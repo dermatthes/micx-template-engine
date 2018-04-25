@@ -9,24 +9,20 @@
 namespace Micx\Core\Vfs;
 
 
-class VirtualFileSystem
+class VirtualFileSystem extends VirtualFile
 {
-
-    protected $rootDir;
 
     protected function __construct(string $rootDir)
     {
         $this->rootDir = $rootDir;
+        $this->curDir = $rootDir;
     }
 
-    public function select(string $path) : VirtualFile
-    {
-        return new VirtualFile($path, $this);
-    }
 
     public static function Build ($rootDir) : VirtualFileSystem
     {
 
+        return new self(realpath($rootDir));
     }
 
 }
