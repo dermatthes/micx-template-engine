@@ -1,0 +1,15 @@
+:html
+    :head
+        :title > Geh Weg {{ title }}
+
+
+    :body
+        :nav @some
+        :div @container ~if=wurst
+            Willkommen hier meine {{ name | lap }} lieben Leute
+            Ihr köönt mich mal
+
+        :div @class=~class()
+
+        ~var(content)
+
