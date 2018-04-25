@@ -18,7 +18,7 @@ class DiFactory implements DiRef
     private $isProtected;
 
 
-    public function __construct(callable $factory, bool $isProtected)
+    public function __construct(callable $factory, bool $isProtected = false)
     {
         $this->factory = $factory;
         $this->isProtected = $isProtected;

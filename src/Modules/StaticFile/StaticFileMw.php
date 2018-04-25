@@ -39,7 +39,8 @@ class StaticFileMw implements MiddleWare
     {
         try {
             $file = $app->virtualFileSystem->withFileName($request->getUri()->getPath());
-            $response = new Response\HtmlResponse(new Stream($file->fopen()));
+            $contentType = $app->mimeMap->getMimeTypeByExtension($file->getExtension());
+            $response = new Response\HtmlResponse(new Stream($file->fopen()), 200, ["Content-Type" => $contentType]);
             return $response;
         } catch (PathNotFoundException $e) {
             return $next($request, $response);

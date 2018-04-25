@@ -14,6 +14,7 @@ use Micx\Core\App\Di\DiContainerTrait;
 use Micx\Core\App\Mw\MiddleWareContainer;
 use Micx\Core\App\Mw\Next;
 use Micx\Core\Vfs\VirtualFileSystem;
+use Micx\Modules\Mime\MimeMap;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\SapiEmitter;
 use Zend\Diactoros\ServerRequest;
@@ -26,6 +27,7 @@ use Zend\Diactoros\Stream;
  * @package Micx\Core\App
  *
  * @property VirtualFileSystem $virtualFileSystem
+ * @property MimeMap $mimeMap
  */
 class Application implements DiContainer
 {
@@ -43,6 +45,8 @@ class Application implements DiContainer
         if ($serverRequest === null)
             $serverRequest = ServerRequestFactory::fromGlobals();
         $response = $this->dispatch($serverRequest);
+        if ($response instanceof Response\EmptyResponse)
+            throw new \InvalidArgumentException("Empty response");
         $emiter = new SapiEmitter();
         $emiter->emit($response);
     }
