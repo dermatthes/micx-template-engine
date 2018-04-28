@@ -14,20 +14,39 @@ use HtmlTheme\Elements\DocumentNode;
 use HtmlTheme\Elements\HtmlContainerElement;
 use HtmlTheme\Elements\HtmlElement;
 use HtmlTheme\Elements\TextNode;
+use Micx\Modules\Template\Element\TemplateContainerElement;
+use Micx\Modules\Template\Element\TemplateElement;
+use Micx\Modules\Template\Element\TemplateText;
+use Micx\Modules\Template\Extension\Extension;
 
 class MicxTeimplateParserCallback implements HtmlCallback
 {
+
+    /**
+     * @var Extension[]
+     */
+    private $extensions = [];
 
     private $document;
     private $curElement;
 
 
-    public function __construct(MicxTemplate $template)
+    public function __construct()
+    {
+
+    }
+
+    public function setTemplate (MicxTemplate $template)
     {
         $this->document = $template;
         $this->curElement = $this->document;
-
     }
+
+    public function registerExtension (Extension $extension)
+    {
+        $this->extensions[] = $extension;
+    }
+
 
 
     public function onWhitespace(string $ws, int $lineNo)
@@ -38,16 +57,22 @@ class MicxTeimplateParserCallback implements HtmlCallback
     public function onTagOpen(string $name, array $attributes, $isEmpty, $ns = null, int $lineNo)
     {
         if ($isEmpty) {
-            $this->curElement->add(new HtmlElement($name, $attributes));
-            return;
+            $newElem = new TemplateElement($name, $attributes);
+        } else {
+            $newElem = new TemplateContainerElement($name, $attributes);
         }
-        $this->curElement->add($new = new HtmlContainerElement($name, $attributes));
-        $this->curElement = $new;
+
+        foreach ($this->extensions as $curExtension) {
+            $curExtension->buildNode($newElem);
+        }
+
+        $this->curElement->add($newElem);
+        $this->curElement = $newElem;
     }
 
     public function onText(string $text, int $lineNo)
     {
-        $this->curElement->add(new TextNode($text));
+        $this->curElement->add(new TemplateText($text));
     }
 
     public function onTagClose(string $name, $ns = null, int $lineNo)

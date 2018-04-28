@@ -23,5 +23,5 @@ $tpl = $tf->buildTemplate($vfs->withFileName("/basic.html"));
 
 echo "wurst";
 print_r ($tpl);
-Assert::equal([], $tpl);
+file_put_contents("test.php", var_export($tpl, true));
 Assert::true(true);
