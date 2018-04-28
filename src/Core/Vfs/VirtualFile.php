@@ -32,7 +32,10 @@ class VirtualFile extends VirtualPath
 
     public function getContents () : string
     {
-        file_get_contents($this->curDir);
+        $data = file_get_contents($this->curDir);
+        if ($data === false)
+            throw new \InvalidArgumentException("Cant read '$this->curDir'");
+        return $data;
     }
 
     public function getYaml () : array

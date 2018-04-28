@@ -9,13 +9,19 @@
 namespace Micx\Modules\Template;
 
 
+use HTML5\HTMLReader;
 use Micx\Core\Vfs\VirtualFile;
 
 class TemplateFactory
 {
 
-    public function buildTemplate (VirtualFile $file)
+    public function buildTemplate (VirtualFile $file) : MicxTemplate
     {
-
+        $template = new MicxTemplate($file);
+        $reader = new HTMLReader();
+        $reader->setHandler(new MicxTeimplateParserCallback($template));
+        $reader->loadHtmlString($file->getContents());
+        $reader->parse();
+        return $template;
     }
 }
