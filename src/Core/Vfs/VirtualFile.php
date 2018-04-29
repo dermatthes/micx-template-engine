@@ -29,6 +29,10 @@ class VirtualFile extends VirtualPath
         return pathinfo($this->curDir)["filename"];
     }
 
+    public function getDirName() : string
+    {
+        return pathinfo($this->curDir)["dirname"];
+    }
 
     public function getContents () : string
     {

@@ -33,9 +33,12 @@ class VirtualPath
      * @throws PathNotFoundException
      * @throws PathOutOfBoundsException
      */
-    public function withPath (string $newPath) : self
+    public function withPath (string $newPath="") : self
     {
-        $relDir = $this->curDir . "/" . $newPath;
+        $basedir = $this->curDir;
+        if ($this instanceof VirtualFile)
+            $basedir = $this->getDirName();
+        $relDir =  $basedir . "/" . $newPath;
         if ( ! is_dir($relDir))
             throw new PathNotFoundException("Path $relDir not found.");
         $realPath = realpath($relDir);

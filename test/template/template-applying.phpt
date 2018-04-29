@@ -9,6 +9,7 @@
 namespace Test;
 use Micx\Core\Vfs\VirtualFile;
 use Micx\Core\Vfs\VirtualFileSystem;
+use Micx\Modules\Template\RenderEnvironment;
 use Micx\Modules\Template\TemplateFactory;
 use Tester\Assert;
 
@@ -17,13 +18,15 @@ require __DIR__ . "/../bootstrap.php";
 
 
 $tf = new TemplateFactory();
+
 $vfs = VirtualFileSystem::Build(__DIR__ . "/mock");
 
-$tpl = $tf->buildTemplate($vfs->withFileName("/basic.html"));
+$tpl = $tf->buildTemplate($virtFile = $vfs->withFileName("/extends2.html"));
 
 //print_r ($tpl);
+$scope = [];
+$environment = new RenderEnvironment($scope, $tf, $virtFile);
+$result = $tpl->apply($environment, null);
 
-$result = $tpl->apply([], null);
-
-print_r ($result);
+echo $result->render();
 //Assert::true(true);

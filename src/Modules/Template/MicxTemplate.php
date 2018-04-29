@@ -12,8 +12,9 @@ namespace Micx\Modules\Template;
 use HtmlTheme\Elements\DocumentNode;
 use HtmlTheme\Elements\HtmlElement;
 use Micx\Core\Vfs\VirtualFile;
+use Micx\Modules\Template\Element\TemplateDocument;
 
-class MicxTemplate extends DocumentNode
+class MicxTemplate extends TemplateDocument
 {
 
     protected $virtualFile;
@@ -30,17 +31,11 @@ class MicxTemplate extends DocumentNode
     {
         if ($targetNode === null)
             $targetNode = new DocumentNode();
-
-        $targetNode = new DocumentNode();
         foreach ($this->children as $child)
             $child->apply($renderEnvironment, $targetNode);
         return $targetNode;
     }
 
-
-    public function exec (TemplateFactory $factory, array $scope) {
-        $env = new RenderEnvironment();
-    }
 
 
 }

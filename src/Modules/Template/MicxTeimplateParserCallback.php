@@ -15,6 +15,7 @@ use HtmlTheme\Elements\HtmlContainerElement;
 use HtmlTheme\Elements\HtmlElement;
 use HtmlTheme\Elements\TextNode;
 use Micx\Modules\Template\Element\TemplateContainerElement;
+use Micx\Modules\Template\Element\TemplateDocument;
 use Micx\Modules\Template\Element\TemplateElement;
 use Micx\Modules\Template\Element\TemplateText;
 use Micx\Modules\Template\Extension\Extension;
@@ -45,6 +46,12 @@ class MicxTeimplateParserCallback implements HtmlCallback
         $this->curElement = $this->document;
     }
 
+    public function clear ()
+    {
+        $this->document = null;
+        $this->curElement = null;
+    }
+
     public function registerExtension (Extension $extension)
     {
         $this->extensions[] = $extension;
@@ -60,9 +67,9 @@ class MicxTeimplateParserCallback implements HtmlCallback
     public function onTagOpen(string $name, array $attributes, $isEmpty, $ns = null, int $lineNo)
     {
         if ($isEmpty) {
-            $newElem = new TemplateElement($name, $attributes);
+            $newElem = new TemplateElement($ns === null ? $name : "$ns:$name", $attributes);
         } else {
-            $newElem = new TemplateContainerElement($name, $attributes);
+            $newElem = new TemplateContainerElement($ns === null ? $name : "$ns:$name", $attributes);
         }
 
         foreach ($this->extensions as $curExtension) {
@@ -85,7 +92,9 @@ class MicxTeimplateParserCallback implements HtmlCallback
 
     public function onProcessingInstruction(string $data, int $lineNo)
     {
-        // TODO: Implement onProcessingInstruction() method.
+        if ( ! $this->curElement instanceof TemplateDocument)
+            throw new \InvalidArgumentException("Expeceted TemplateDocument at processing instructions: $data");
+        $this->curElement->setProcessingInstruction($data);
     }
 
     public function onComment(string $data, int $lineNo)
@@ -95,6 +104,6 @@ class MicxTeimplateParserCallback implements HtmlCallback
 
     public function onEos()
     {
-        // TODO: Implement onEos() method.
+        $this->clear();
     }
 }

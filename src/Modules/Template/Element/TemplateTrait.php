@@ -9,6 +9,7 @@
 namespace Micx\Modules\Template\Element;
 
 
+use HtmlTheme\Elements\DocumentNode;
 use HtmlTheme\Elements\HtmlContainerElement;
 use HtmlTheme\Elements\HtmlElement;
 use HtmlTheme\Elements\TextNode;
@@ -19,6 +20,7 @@ trait TemplateTrait
 {
 
     private $applyCb = [];
+    protected $meta = [];
 
     public function apply (RenderEnvironment $renderEnvironment, HtmlElement $targetNode)
     {
@@ -35,8 +37,20 @@ trait TemplateTrait
     }
 
 
+    public function setMeta ($name, $value)
+    {
+        $this->meta[$name] = $value;
+    }
+
+    public function getMeta ($name)
+    {
+        return isset($this->meta[$name]) ? $this->meta[$name] : null;
+    }
+
+
     public function clone ()
     {
+
         if ($this instanceof HtmlContainerElement) {
             return new HtmlContainerElement($this->tag, $this->attrs);
         }
