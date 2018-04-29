@@ -26,12 +26,20 @@ class MicxTemplate extends DocumentNode
 
 
 
-    public function apply (array $scope, HtmlElement $targetNode=null)
+    public function apply (RenderEnvironment $renderEnvironment, HtmlElement $targetNode=null)
     {
         if ($targetNode === null)
             $targetNode = new DocumentNode();
 
+        $targetNode = new DocumentNode();
+        foreach ($this->children as $child)
+            $child->apply($renderEnvironment, $targetNode);
+        return $targetNode;
+    }
 
+
+    public function exec (TemplateFactory $factory, array $scope) {
+        $env = new RenderEnvironment();
     }
 
 

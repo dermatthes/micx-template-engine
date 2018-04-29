@@ -12,6 +12,7 @@ namespace Micx\Modules\Template\Extension;
 use HtmlTheme\Elements\HtmlContainerElement;
 use Micx\Modules\Template\Element\TemplateContainerElement;
 use Micx\Modules\Template\Element\TemplateNode;
+use Micx\Modules\Template\RenderEnvironment;
 
 class CopyNodeExtension implements Extension
 {
@@ -22,9 +23,13 @@ class CopyNodeExtension implements Extension
     }
 
 
-    public static function CopyNode(TemplateNode $templateNode, array $scope, HtmlContainerElement $targetNode)
+    public static function CopyNode(RenderEnvironment $renderEnvironment, TemplateNode $templateNode, HtmlContainerElement $targetNode)
     {
-        $targetNode->add($templateNode->clone());
+        $targetNode->add($curTarget = $templateNode->clone());
+        if ($templateNode instanceof TemplateContainerElement) {
+            foreach ($templateNode->getChildren() as $child)
+                $child->apply($renderEnvironment, $curTarget);
+        }
 
     }
 

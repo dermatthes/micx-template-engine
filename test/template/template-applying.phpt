@@ -21,8 +21,9 @@ $vfs = VirtualFileSystem::Build(__DIR__ . "/mock");
 
 $tpl = $tf->buildTemplate($vfs->withFileName("/basic.html"));
 
+//print_r ($tpl);
 
-echo "wurst";
-print_r ($tpl);
-file_put_contents("test.php", var_export($tpl, true));
-Assert::true(true);
+$result = $tpl->apply([], null);
+
+print_r ($result);
+//Assert::true(true);

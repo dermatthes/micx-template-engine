@@ -11,22 +11,24 @@ namespace Micx\Modules\Template\Element;
 
 use HtmlTheme\Elements\HtmlContainerElement;
 use HtmlTheme\Elements\HtmlElement;
+use HtmlTheme\Elements\TextNode;
 use Micx\Modules\Template\Extension\CopyNodeExtension;
+use Micx\Modules\Template\RenderEnvironment;
 
 trait TemplateTrait
 {
 
     private $applyCb = [];
 
-    public function apply (array $scope, HtmlContainerElement $targetNode)
+    public function apply (RenderEnvironment $renderEnvironment, HtmlElement $targetNode)
     {
         if (count ($this->applyCb) == 0) {
-            CopyNodeExtension::CopyNode($this, $scope, $targetNode);
+            CopyNodeExtension::CopyNode($renderEnvironment, $this, $targetNode);
         } else {
             foreach ($this->applyCb as $cb) {
                 if (!is_callable($cb))
                     throw new \InvalidArgumentException("Callback expected." . print_r($cb, true));
-                if ($cb($this, $scope, $targetNode) === false)
+                if ($cb($renderEnvironment, $this, $targetNode) === false)
                     break;
             }
         }
@@ -41,7 +43,10 @@ trait TemplateTrait
         if ($this instanceof HtmlElement) {
             return new HtmlElement($this->tag, $this->attrs);
         }
-        throw new \InvalidArgumentException("Cannot clone this type of node.");
+        if ($this instanceof TemplateText) {
+            return new TextNode($this->getText());
+        }
+        throw new \InvalidArgumentException("Cannot clone this type of node." . get_class($this));
     }
 
 
@@ -50,7 +55,8 @@ trait TemplateTrait
         $this->applyCb[] = $cb;
     }
 
-    public function hasApplyCb() {
+    public function hasApplyCb() : bool
+    {
         return count($this->applyCb) === 0;
     }
 

@@ -28,6 +28,9 @@ class MicxTeimplateParserCallback implements HtmlCallback
     private $extensions = [];
 
     private $document;
+    /**
+     * @var TemplateContainerElement
+     */
     private $curElement;
 
 

@@ -9,7 +9,9 @@
 namespace Micx\Modules\Template\Element;
 
 
+use HtmlTheme\Elements\HtmlContainerElement;
 use HtmlTheme\Elements\HtmlElement;
+use HtmlTheme\Elements\HtmlElementNode;
 
 interface TemplateNode
 {
@@ -18,5 +20,9 @@ interface TemplateNode
     public function addApplyCb(callable $cb);
 
     public function hasApplyCb() :bool ;
+
+    /**
+     * @return HtmlContainerElement
+     */
     public function clone();
 }

@@ -19,9 +19,12 @@ class TemplateFactory
     {
         $template = new MicxTemplate($file);
         $reader = new HTMLReader();
-        $reader->setHandler(new MicxTeimplateParserCallback($template));
+        $reader->setHandler($parser = new MicxTeimplateParserCallback());
+        $parser->setTemplate($template);
+        //$parser->registerExtension();
         $reader->loadHtmlString($file->getContents());
         $reader->parse();
         return $template;
     }
+
 }
