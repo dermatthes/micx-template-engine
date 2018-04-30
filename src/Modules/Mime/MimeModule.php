@@ -30,6 +30,7 @@ class MimeModule implements Module
             [
                 "map" => [
                     "html"  => "text/html",
+                    "md"    => "text/html",
                     "txt"   => "text/plain"
                 ]
             ]

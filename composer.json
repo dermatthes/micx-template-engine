@@ -13,7 +13,8 @@
     "php": ">=7.1",
     "zendframework/zend-uri": "^2.5",
     "zendframework/zend-diactoros": "^1.7",
-    "erusev/parsedown-extra": "^0.7.1",
+    "erusev/parsedown": "1.7.1",
+    "erusev/parsedown-extra": "0.7.1",
     "html5/htmlreader": "^2.0",
     "continue/theme": "dev-master"
   },
