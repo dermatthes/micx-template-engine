@@ -50,7 +50,11 @@ trait TemplateTrait
 
     public function clone ()
     {
-
+        if ($this instanceof TemplateDocument) {
+            $ret = new DocumentNode();
+            $ret->setProcessingInstruction($this->processingInstruction);
+            return $ret;
+        }
         if ($this instanceof HtmlContainerElement) {
             return new HtmlContainerElement($this->tag, $this->attrs);
         }

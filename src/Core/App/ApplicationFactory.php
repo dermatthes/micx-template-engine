@@ -13,6 +13,7 @@ use Micx\Core\App\Di\DiValue;
 use Micx\Core\Config\ConfigFile;
 use Micx\Core\Config\ConfigFileFactory;
 use Micx\Core\Helper\EventEmitterTrait;
+use Micx\Core\Vfs\VirtualFile;
 use Micx\Core\Vfs\VirtualFileSystem;
 use Symfony\Component\Yaml\Yaml;
 
@@ -53,11 +54,14 @@ class ApplicationFactory
     }
 
 
-    public function build (array $configData) : Application
+    public function build (VirtualFile $configFile) : Application
     {
-        $configFileFactory = new ConfigFileFactory();
-        $this->triggerEvent("config-init", $configFileFactory);
-        $configFileFactory->build($configData, $config = new ConfigFile());
+        $config = $configFile->getParsedCached(function () use ($configFile) {
+            $configFileFactory = new ConfigFileFactory();
+            $this->triggerEvent("config-init", $configFileFactory);
+            $configFileFactory->build($configFile->getYaml(), $config = new ConfigFile());
+            return $config;
+        });
 
         // Caching vom Conifg-Object
 

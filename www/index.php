@@ -26,7 +26,7 @@ $factory->registerAvailableModule(new StaticFileModule());
 $factory->registerAvailableModule(new TemplateModule());
 
 
-$application = $factory->build($vfs->withFileName("micx.yml")->getYaml());
+$application = $factory->build($vfs->withFileName("micx.yml"));
 
 
 $application->serve();

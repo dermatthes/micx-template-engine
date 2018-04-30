@@ -30,6 +30,7 @@ class MicxTemplate extends TemplateDocument
     {
         if ($targetNode === null)
             $targetNode = new DocumentNode();
+        $targetNode->setProcessingInstruction($this->processingInstruction);
         foreach ($this->children as $child)
             $child->apply($renderEnvironment, $targetNode);
         return $targetNode;
