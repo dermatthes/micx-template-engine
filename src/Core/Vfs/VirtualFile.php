@@ -44,7 +44,11 @@ class VirtualFile extends VirtualPath
 
     public function getYaml () : array
     {
+        // Secure YAML parsing
+        ini_set("yaml.decode_php", 0);
         $ret = yaml_parse_file($this->curDir);
+        if ($ret === false)
+            throw new \InvalidArgumentException("Cannot parse {$this}: " . error_get_last()["message"]);
         return $ret;
     }
 

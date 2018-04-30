@@ -101,4 +101,10 @@ class VirtualPath
         return implode("/", $ret);
     }
 
+
+    public function __toString()
+    {
+        return $this->curDir;
+    }
+
 }

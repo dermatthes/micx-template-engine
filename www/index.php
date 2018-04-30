@@ -13,15 +13,17 @@ use Micx\Core\Vfs\VirtualFileSystem;
 use Micx\Modules\Mime\MimeModule;
 use Micx\Modules\Router\RouterModule;
 use Micx\Modules\StaticFile\StaticFileModule;
+use Micx\Modules\Template\TemplateModule;
 use Symfony\Component\Yaml\Yaml;
 
 require __DIR__ . "/../vendor/autoload.php";
 
 
-$factory = new ApplicationFactory($vfs = VirtualFileSystem::Build(__DIR__ ."/../test/ref_page"));
+$factory = new ApplicationFactory($vfs = VirtualFileSystem::Build(__DIR__ ."/../demo"));
 $factory->registerAvailableModule(new MimeModule());
 $factory->registerAvailableModule(new RouterModule());
 $factory->registerAvailableModule(new StaticFileModule());
+$factory->registerAvailableModule(new TemplateModule());
 
 
 $application = $factory->build($vfs->withFileName("micx.yml")->getYaml());

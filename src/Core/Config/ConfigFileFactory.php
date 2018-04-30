@@ -25,6 +25,18 @@ class ConfigFileFactory
 
     public function build(array $input, ConfigFile $targetConfigFile )
     {
+        foreach (get_class_vars(get_class($targetConfigFile)) as $key => $default) {
+            if ( ! isset ($input[$key])) {
+                if ($default !== null) {
+                    $targetConfigFile->$key = $default;
+                } else {
+                    throw new \InvalidArgumentException("Missing required section '$key'");
+                }
+            } else {
+                $targetConfigFile->$key = $input[$key];
+                unset($input[$key]);
+            }
+        }
 
         foreach ($this->builders as $key => $call) {
             $default = $call[1]; $builder = $call[0];

@@ -9,10 +9,20 @@
 namespace Micx\Core\Config;
 
 
+use Micx\Core\Serializer\ObjectUnserializerTrait;
+
 class ConfigFile
 {
+    use ObjectUnserializerTrait;
 
-
+    const __META__ = [
+        "properties" => [
+            "version" => [
+                "type" => "string"
+            ]
+        ]
+    ];
+    public $version = "";
 
 
 }

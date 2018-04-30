@@ -36,7 +36,7 @@ class MimeModule implements Module
         );
     }
 
-    function _onAppInit(Application $application, ConfigFile $configFile)
+    public function _onAppInit(Application $application, ConfigFile $configFile)
     {
         $application->mimeMap = new DiFactory(
             function () use ($configFile) {

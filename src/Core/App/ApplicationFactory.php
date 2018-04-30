@@ -53,17 +53,6 @@ class ApplicationFactory
     }
 
 
-
-
-    public function buildConfig (string $data)
-    {
-        $parsed = Yaml::parse($data);
-        return $parsed;
-    }
-
-
-
-
     public function build (array $configData) : Application
     {
         $configFileFactory = new ConfigFileFactory();
