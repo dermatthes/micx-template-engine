@@ -29,14 +29,17 @@ class TemplateFactory
 
     public function buildTemplate (VirtualFile $file) : MicxTemplate
     {
-        $template = new MicxTemplate($file);
-        $reader = new HTMLReader();
-        $reader->setHandler($this->templateParserCallback);
-        $this->templateParserCallback->setTemplate($template);
-        //$parser->registerExtension();
-        $reader->loadHtmlString($file->getContents());
-        $reader->parse();
-        return $template;
+        return $file->getParsedCached(function () use ($file) {
+            $template = new MicxTemplate($file);
+            $reader = new HTMLReader();
+            $reader->setHandler($this->templateParserCallback);
+            $this->templateParserCallback->setTemplate($template);
+            //$parser->registerExtension();
+            $reader->loadHtmlString($file->getContents());
+            $reader->parse();
+            return $template;
+        });
+
     }
 
 }

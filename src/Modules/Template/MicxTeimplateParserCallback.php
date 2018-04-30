@@ -35,6 +35,8 @@ class MicxTeimplateParserCallback implements HtmlCallback
     private $curElement;
 
 
+    private $emptyElements = ["img", "link", "meta", "hr", "input"];
+
     public function __construct()
     {
 
@@ -66,6 +68,8 @@ class MicxTeimplateParserCallback implements HtmlCallback
 
     public function onTagOpen(string $name, array $attributes, $isEmpty, $ns = null, int $lineNo)
     {
+        if (in_array($name, $this->emptyElements))
+            $isEmpty = true;
         if ($isEmpty) {
             $newElem = new TemplateElement($ns === null ? $name : "$ns:$name", $attributes);
         } else {
@@ -76,8 +80,14 @@ class MicxTeimplateParserCallback implements HtmlCallback
             $curExtension->buildNode($newElem);
         }
 
+        if ( ! $this->curElement instanceof HtmlContainerElement) {
+            print_r ($newElem);
+            throw new \InvalidArgumentException("Invalid container '{$this->curElement->getTag()}' in line $lineNo");
+        }
+
         $this->curElement->add($newElem);
-        $this->curElement = $newElem;
+        if ( ! $isEmpty )
+            $this->curElement = $newElem;
     }
 
     public function onText(string $text, int $lineNo)
@@ -87,6 +97,8 @@ class MicxTeimplateParserCallback implements HtmlCallback
 
     public function onTagClose(string $name, $ns = null, int $lineNo)
     {
+        //if ($this->curElement->getTag() != $name)
+        //    throw new \InvalidArgumentException("Closing tag '$name' mismatch on line $lineNo");
         $this->curElement = $this->curElement->getParent();
     }
 

@@ -64,4 +64,16 @@ class VirtualFile extends VirtualPath
     }
 
 
+    public function getParsedCached(callable $fn)
+    {
+        $inode = fileinode($this->curDir);
+        $storpath = "/tmp/" . urlencode($this->curDir) . $inode;
+        if ( ! file_exists($storpath)) {
+            file_put_contents($storpath, serialize($ret = $fn()));
+            return $ret;
+        }
+        return unserialize(file_get_contents($storpath));
+    }
+
+
 }

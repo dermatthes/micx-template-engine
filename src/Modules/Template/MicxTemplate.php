@@ -26,7 +26,6 @@ class MicxTemplate extends TemplateDocument
     }
 
 
-
     public function apply (RenderEnvironment $renderEnvironment, HtmlElement $targetNode=null)
     {
         if ($targetNode === null)
