@@ -59,8 +59,18 @@ class TemplateFactory
                 [$meta, $content] = $this->_parseMarkdown($file->getContents());
                 $content = $parser->text($content);
 
+
+                $attribs = "";
+
+                foreach ($meta as $key => $value) {
+                    if ($key === "extends")
+                        continue;
+                    $attribs .= " $key=\"" . htmlspecialchars($value) . "\"";
+                }
+
+
                 if (isset ($meta["extends"])) {
-                    $content =  "<extends name=\"{$meta["extends"]}\">\n{$content}\n</extends>";
+                    $content =  "<extends name=\"{$meta["extends"]}\"{$attribs}>\n{$content}\n</extends>";
                 }
             } else {
                 $content = $file->getContents();

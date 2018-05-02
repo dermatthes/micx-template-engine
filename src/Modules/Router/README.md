@@ -5,14 +5,14 @@
 
 ```
 route:
-    config_file: ""
-
+    config_file: "micx-routes.yml"
+    routes:
 ```
 
 ```
 routes:
-    @index: 
-        route: /
-        target: /index.md
-
+  - name: index 
+    target: /index.md
+    match: 
+        "*": /
 ```

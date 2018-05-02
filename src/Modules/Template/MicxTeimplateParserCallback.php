@@ -81,7 +81,6 @@ class MicxTeimplateParserCallback implements HtmlCallback
         }
 
         if ( ! $this->curElement instanceof HtmlContainerElement) {
-            print_r ($newElem);
             throw new \InvalidArgumentException("Invalid container '{$this->curElement->getTag()}' in line $lineNo");
         }
 

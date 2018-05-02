@@ -1,5 +1,6 @@
 ---
 extends: extends2.html
+title: Willkommen bei uns
 ---
 
 

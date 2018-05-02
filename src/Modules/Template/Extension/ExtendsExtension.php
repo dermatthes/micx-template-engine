@@ -11,6 +11,7 @@ namespace Micx\Modules\Template\Extension;
 
 use HtmlTheme\Elements\DocumentNode;
 use HtmlTheme\Elements\HtmlContainerElement;
+use HtmlTheme\Elements\TextNode;
 use Micx\Modules\Template\Element\TemplateContainerElement;
 use Micx\Modules\Template\Element\TemplateElement;
 use Micx\Modules\Template\Element\TemplateNode;
@@ -42,7 +43,8 @@ class ExtendsExtension implements Extension
 
         $extendedVFS = $renderEnvironment->virtualFile->withPath()->withFileName($node->getMeta("extends-tpl"));
         $extendedEnvironment = new RenderEnvironment($renderEnvironment->scope, $renderEnvironment->templateFactory, $extendedVFS);
-        $extendedEnvironment->scope["wurst"]= "muh";
+        $extendedEnvironment->scope = array_merge($extendedEnvironment->scope, $node->getAttribs());
+
         $extendedTemplate = $renderEnvironment->templateFactory->buildTemplate($extendedVFS);
         $extendedDocument = new DocumentNode();
 
@@ -72,7 +74,9 @@ class ExtendsExtension implements Extension
                 throw new \InvalidArgumentException("Slot is only applicable on container node (2)");
 
             $content = $renderEnvironment->scope[$slotName];
-            if (is_array($content)) {
+            if (is_string($content)) {
+                $target->add(new TextNode($content));
+            } else if (is_array($content)) {
                 foreach ($content as $curContent)
                     $target->add($curContent);
             } else {
