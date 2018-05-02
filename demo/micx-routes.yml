@@ -1,0 +1,5 @@
+routes:
+- name: "blah"
+  target: "/main.md"
+  match:
+    "*": "/"

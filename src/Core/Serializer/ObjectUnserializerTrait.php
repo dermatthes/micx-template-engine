@@ -22,7 +22,7 @@ trait ObjectUnserializerTrait
     public static function Unserialize(array $data) : self
     {
         $sz = new ObjectSerializer();
-        return $sz->deserialize($data, self::class);
+        return $sz->deserialize($data, get_called_class());
     }
 
     /**

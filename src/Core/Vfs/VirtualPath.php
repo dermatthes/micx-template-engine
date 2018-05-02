@@ -61,7 +61,10 @@ class VirtualPath
      */
     public function withFileName (string $fileName) : VirtualFile
     {
-        $relDir = $this->curDir . "/" . $fileName;
+        $basedir = $this->curDir;
+        if ($this instanceof VirtualFile)
+            $basedir = $this->getDirName();
+        $relDir =  $basedir . "/" . $fileName;
         if ( ! is_file($relDir))
             throw new PathNotFoundException("File $relDir not found.");
         $realPath = realpath($relDir);

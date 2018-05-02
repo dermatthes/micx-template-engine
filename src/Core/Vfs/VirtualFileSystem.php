@@ -9,7 +9,7 @@
 namespace Micx\Core\Vfs;
 
 
-class VirtualFileSystem extends VirtualFile
+class VirtualFileSystem extends VirtualPath
 {
 
     protected function __construct(string $rootDir)

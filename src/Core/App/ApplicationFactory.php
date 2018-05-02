@@ -58,7 +58,7 @@ class ApplicationFactory
     {
         $config = $configFile->getParsedCached(function () use ($configFile) {
             $configFileFactory = new ConfigFileFactory();
-            $this->triggerEvent("config-init", $configFileFactory);
+            $this->triggerEvent("config-init", $configFileFactory, $configFile);
             $configFileFactory->build($configFile->getYaml(), $config = new ConfigFile());
             return $config;
         });

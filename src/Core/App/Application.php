@@ -15,6 +15,7 @@ use Micx\Core\App\Mw\MiddleWareContainer;
 use Micx\Core\App\Mw\Next;
 use Micx\Core\Vfs\VirtualFileSystem;
 use Micx\Modules\Mime\MimeMap;
+use Micx\Modules\Router\Router;
 use Micx\Modules\Template\TemplateFactory;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\SapiEmitter;
@@ -30,6 +31,9 @@ use Zend\Diactoros\Stream;
  * @property VirtualFileSystem $virtualFileSystem
  * @property MimeMap $mimeMap
  * @property TemplateFactory $templateFactory
+ * @property Router $router
+ * @property ServerRequest $origRequest
+ * @property ServerRequest $request
  */
 class Application implements DiContainer
 {

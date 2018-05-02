@@ -12,6 +12,7 @@ namespace Micx\Modules\Template;
 use HTML5\HTMLReader;
 use Micx\Core\Vfs\VirtualFile;
 use Micx\Modules\Template\Extension\ExtendsExtension;
+use Micx\Modules\Template\Extension\Extension;
 
 class TemplateFactory
 {
@@ -24,6 +25,11 @@ class TemplateFactory
         $tpc->registerExtension(new ExtendsExtension());
     }
 
+
+    public function registerExtension (Extension $extension)
+    {
+        $this->templateParserCallback->registerExtension($extension);
+    }
 
 
     protected function _parseMarkdown ($content)
