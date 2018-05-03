@@ -1,6 +1,6 @@
 # MicxTemplate
 
-## Template Inheritance
+## Template Inheritance (<file>.html)
 
 main.html
 ```
@@ -22,4 +22,24 @@ page.html
     <h1>Dies ist Header</h1>
     <p> Content </p>
 </extends>
+```
+
+## Markdown Templates (<file>.md)
+
+See [Markdown Documentation](https://michelf.ca/projects/php-markdown/extra/)
+
+```
+---
+extends: main.html
+title: Welcome to this site
+---
+
+# Welcome
+
+This is some code
+
+<div class="" markdown="1">
+This is *embedded*
+Markdown Text
+</div>
 ```
