@@ -19,12 +19,18 @@ class MicxTemplate extends TemplateDocument
 
     protected $virtualFile;
 
+
+
     public function __construct(VirtualFile $virtualFile)
     {
         parent::__construct();
         $this->virtualFile = $virtualFile;
     }
 
+    public function getVirtualFile() : VirtualFile
+    {
+        return $this->virtualFile;
+    }
 
     public function apply (RenderEnvironment $renderEnvironment, HtmlElement $targetNode=null)
     {

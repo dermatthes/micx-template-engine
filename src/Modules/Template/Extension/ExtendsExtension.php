@@ -15,6 +15,7 @@ use HtmlTheme\Elements\TextNode;
 use Micx\Modules\Template\Element\TemplateContainerElement;
 use Micx\Modules\Template\Element\TemplateElement;
 use Micx\Modules\Template\Element\TemplateNode;
+use Micx\Modules\Template\MicxTemplate;
 use Micx\Modules\Template\RenderEnvironment;
 
 class ExtendsExtension implements Extension
@@ -85,7 +86,7 @@ class ExtendsExtension implements Extension
         }
     }
 
-    public function buildNode(TemplateNode $node)
+    public function buildNode(TemplateNode $node, MicxTemplate $ownerTemplate)
     {
         if ( ! $node instanceof TemplateContainerElement) {
             return;

@@ -22,6 +22,12 @@ class VirtualPath
         return $this->rootDir . "/" . $this->curDir;
     }
 
+
+    public function getAbsWwwRoot() : string
+    {
+        return substr($this->curDir, strlen($this->rootDir));
+    }
+
     public function fileExists () : bool
     {
         return file_exists($this->getPath());

@@ -12,12 +12,13 @@ namespace Micx\Modules\Template\Extension;
 use HtmlTheme\Elements\HtmlContainerElement;
 use Micx\Modules\Template\Element\TemplateContainerElement;
 use Micx\Modules\Template\Element\TemplateNode;
+use Micx\Modules\Template\MicxTemplate;
 use Micx\Modules\Template\RenderEnvironment;
 
 class CopyNodeExtension implements Extension
 {
 
-    public function buildNode(TemplateNode $node)
+    public function buildNode(TemplateNode $node, MicxTemplate $ownerTemplate)
     {
         // TODO: Implement buildNode() method.
     }

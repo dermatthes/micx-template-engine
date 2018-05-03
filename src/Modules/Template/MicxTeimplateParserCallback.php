@@ -77,7 +77,7 @@ class MicxTeimplateParserCallback implements HtmlCallback
         }
 
         foreach ($this->extensions as $curExtension) {
-            $curExtension->buildNode($newElem);
+            $curExtension->buildNode($newElem, $this->document);
         }
 
         if ( ! $this->curElement instanceof HtmlContainerElement) {

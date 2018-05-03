@@ -12,6 +12,19 @@ namespace Micx\Core\Vfs;
 class VirtualFileSystem extends VirtualPath
 {
 
+
+    protected $searchPath = [];
+
+    public function findFileBySearchPath (string $filename)
+    {
+
+    }
+
+    public function setSearchPath (array $searchPath)
+    {
+        $this->searchPath = $searchPath;
+    }
+
     protected function __construct(string $rootDir)
     {
         $this->rootDir = $rootDir;

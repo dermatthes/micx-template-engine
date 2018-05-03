@@ -11,8 +11,10 @@ namespace Micx\Modules\Template;
 
 use HTML5\HTMLReader;
 use Micx\Core\Vfs\VirtualFile;
+use Micx\Modules\Template\Extension\AbsolutePathExtension;
 use Micx\Modules\Template\Extension\ExtendsExtension;
 use Micx\Modules\Template\Extension\Extension;
+use Micx\Modules\Template\Extension\IncludeExtension;
 
 class TemplateFactory
 {
@@ -22,7 +24,9 @@ class TemplateFactory
     public function __construct()
     {
         $this->templateParserCallback = $tpc = new MicxTeimplateParserCallback();
+        $tpc->registerExtension(new AbsolutePathExtension());
         $tpc->registerExtension(new ExtendsExtension());
+        $tpc->registerExtension(new IncludeExtension());
     }
 
 

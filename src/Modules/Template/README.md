@@ -24,6 +24,13 @@ page.html
 </extends>
 ```
 
+## Include
+
+```
+<include name"include.html"
+```
+
+
 ## Markdown Templates (<file>.md)
 
 See [Markdown Documentation](https://michelf.ca/projects/php-markdown/extra/)
