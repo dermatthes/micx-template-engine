@@ -19,7 +19,7 @@ class T_VfsConfig
         "properties" => [
             "search_path" => [
                 "type" => "string",
-                "map" => true
+                "array" => true
             ]
         ]
     ];
@@ -27,5 +27,5 @@ class T_VfsConfig
     /**
      * @var string[]
      */
-    public $map;
+    public $search_path;
 }

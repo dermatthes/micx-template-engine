@@ -30,7 +30,7 @@ class VfsModule implements Module
             },
             [
                 "search_path" => [
-                    "./", "/_pages/", "/_elements/", "/_includes/"
+                    "/"
                 ]
             ]
         );

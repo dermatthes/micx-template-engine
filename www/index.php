@@ -14,6 +14,7 @@ use Micx\Modules\Mime\MimeModule;
 use Micx\Modules\Router\RouterModule;
 use Micx\Modules\StaticFile\StaticFileModule;
 use Micx\Modules\Template\TemplateModule;
+use Micx\Modules\Vfs\VfsModule;
 use Symfony\Component\Yaml\Yaml;
 
 require __DIR__ . "/../vendor/autoload.php";
@@ -24,6 +25,7 @@ $factory->registerAvailableModule(new MimeModule());
 $factory->registerAvailableModule(new RouterModule());
 $factory->registerAvailableModule(new StaticFileModule());
 $factory->registerAvailableModule(new TemplateModule());
+$factory->registerAvailableModule(new VfsModule());
 
 
 $application = $factory->build($vfs->withFileName("micx.yml"));
